@@ -1,0 +1,65 @@
+\documentclass{csulbmsthesis}
+
+\graphicspath{ {Figures/} }
+
+\usepackage{lipsum} % used for dummy text in preface.tex and chapter2.tex. you should remove this and the accompanying \lipsum commands
+
+%%% Use for Turabian style bibliography and references. Use \printbibliography and remove the \bibliography{} and \bibliographystyle{} commands
+% \usepackage[backend=bibtex]{biblatex-chicago}
+% \addbibresource{references.bib}
+% \renewcommand{\bibsetup}{\singlespacing}
+% \renewcommand{\bibitemsep}{1\baselineskip}
+% \renewcommand{\bibhang}{0.5in}
+%%%
+
+% \usepackage{natbib} % use this if using 'ascelike' for bibliography. 
+
+% % % - - - - - - - - - - - - - - - - - - - % % %
+
+\begin{document}
+% ----- Front Matter ----- %
+% Comment/delete parts as needed
+\frontmatter
+\input{Front-matter/title.tex}				% title page
+\input{Front-matter/copyright.tex}			% copyright (optional)
+\input{Front-matter/abstract.tex}			% abstract
+\input{Front-matter/acknowledgements.tex}	% acknowledgements (optional)
+\tocTabFigLists								% adds table of contents, list of tables and figures
+\input{Front-matter/abbreviations.tex}		% list of abbreviations (optional)
+\input{Front-matter/works.tex}				% list of works (optional)
+\input{Front-matter/preface.tex}			% preface (optional)
+
+% ----- Body (Main) Matter ----- %
+% Add more chapters below in new .tex files as needed. Use these given chapters as a template.
+\mainmatter
+\input{Chapters/chapter1.tex}
+\input{Chapters/chapter2.tex}
+\input{Chapters/chapter3.tex}
+\input{Chapters/chapter4.tex}
+
+% ----- Back Matter ----- %
+%% IMPORTANT: use either the code for the multiple appendices or for the single appendix. Not both!
+
+%% for MULTIPLE appendices --- %%
+%% Add more appendices below in new .tex files as needed. Use these given appendices as a template.
+\appendicesTitlePage	% adds appendices cover page
+\begin{appendices}		% fixes appendices chapter numbering
+	\input{Appendix/appendixA.tex}
+	\input{Appendix/appendixB.tex}	
+
+\end{appendices}
+%% --------------------------- %%
+
+%% for SINGLE appendix --- %%
+% \input{Appendix/appendix-single.tex}
+%% ----------------------- %%
+
+\bibTitlePage{REFERENCES} % Adds and chooses the title page and heading at the top of your bibliography/references page
+
+\bibliographystyle{ieeetr} % popular options include 'ieeetr' 'asmejour' 'ascelike'
+\bibliography{references}
+
+% {\centering \textbf{REFERENCES}} % Use this if you're using the biblatex chicago/turabian style 
+% \printbibliography[heading=none] % Use this if you're using the biblatex chicago/turabian style, and comment out the above \bibliography{} and \bibliographystyle{} commands
+
+\end{document}

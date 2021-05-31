@@ -1,0 +1,108 @@
+\clearpage
+\chapter{BASIC TYPESETTING}
+\doublespacing
+
+
+$$\kappa^(23)$$
+
+Albert Einstein's theory of relativity stated that $E=mc^2$ \cite{Einstein:1944a} 
+
+
+In these paragraphs, we will display examples for many common features in \LaTeX. The code is shown in \texttt{main.tex} and the associated output in \texttt{main.pdf}. We assume you already know the basic syntactical structure of \TeX with its commands and environments. If you are not familiar, it is recommended you read \texttt{intro to latex.pdf} provided in this package. We will start with the most basic examples of different fonts and styles.
+
+\section*{Fonts and Styles}
+
+\textbf{Bold} font is made using the \texttt{\textbackslash textbf} command. \textit{Italic} font is made using the \texttt{\textbackslash textit} command. \underline{Underline} font is made using the \texttt{\textbackslash underline} command. \texttt{Monospace/teletype} font is made using the \texttt{\textbackslash texttt} command. \textsf{Sans-serif} font is made using the \texttt{\textbackslash textsf} command.
+
+\section*{Math}
+
+One of \LaTeX's greatest strengths is its mathemetical typesetting. You can enter inline math $\mathrm{e}^{\mathrm{i}\pi}$. You can also have a math block.
+
+$$
+f(x) = \int _{-\infty} ^\infty g(x) \, \mathrm{d}x
+$$
+
+
+
+You can have $f(x) = \int _{-\infty} ^\infty g(x) \, \mathrm{d}x$ numbered equations with the \texttt{equation} environment.
+
+\begin{equation}
+	\Phi(n) = \gamma^n + \Delta \gamma \cdot \vec{\zeta} \label{eqn:exampleEqn}
+\end{equation}
+
+You can also align equations by using a \texttt{\&} in the \texttt{align*} environment. Omitting the \texttt{*} will number each line.
+
+\begin{align*}
+	h_1 &= \mathbf{X}_1 + N \\
+	h_2 &= \mathbf{X}_1 + N \\
+	&\vdots \\
+	h_n &= \mathbf{X}_n + N \\
+\end{align*}
+
+Make sure you use the proper notation for your field. A common mistake is to italicize units in math mode. Units are supposed to be typset in a roman font because $\mu m$ in italic means you are multiplying two variables and $\mathrm{\upmu m}$ means your value is in micrometers. A similar mistake is often made for special functions. If you are using a multi-letter function such as $\sin()$ or $\mathrm{floor}()$, it should not be italic for the same reason as before. To fix these issues, you can use the \texttt{\textbackslash mathrm} command when in math mode to set your text as roman (or upright). Greek letters need to be specified as upright by prepending `up' to the command, e.g., \texttt{\$\textbackslash upmu\$}.
+
+\section*{Quotation marks}
+Quotes are written in latex using \texttt{\`} for opening and \texttt{\'} for closing. They can be used for `single' and ``double'' quotes alike.
+
+\section*{Lists}
+Bulleted lists are made with the \texttt{itemize} environment. Numbered lists are made with hte \texttt{enumerate} environment. They can be made hierrarchal by embedding another lists within. A bulleted list:
+\begin{itemize}
+	\item First level
+	\begin{itemize}
+		\item second level
+	\end{itemize}
+\end{itemize}
+A numbered list:
+\begin{enumerate}
+	\item First level
+	\begin{enumerate}
+		\item second level
+	\end{enumerate}
+\end{enumerate}
+
+\section*{Code Listing}
+You can make a code block using the \texttt{verbatim} environment. Be mindful that unlike most \TeX environments, it is senstive to spaces (but not tabs) at the beginning of lines so that you may indent your code.
+\begin{verbatim}
+class Fill:
+  def __init__(self, color=BLACK, style='solid'):
+    self.color = color
+    self.style = style
+\end{verbatim}
+
+\section*{Figures}
+Figures can be included using the \texttt{\textbackslash includegraphics} command, and their placement and captioning can be configured using the \texttt{figure} environment. Generally, \LaTeX can determine the best placement of your figure on the page itself, but you can give it a placement option of \texttt{h}, \texttt{t}, \texttt{b}, or \texttt{p} to place it \underline{h}ere, on \underline{t}op, on \underline{b}ottom, or on its own \underline{p}age. Note that in \texttt{main.tex}, we have already set the graphics path with the \texttt{\textbackslash graphicspath\{ \{Figures/ \} \}} command, which means it is always going to look in that folder for your figures.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=4 in]{elbee.jpg}
+	\caption{This is our new mascot!}
+	\label{fig:exampleFig}
+\end{figure}
+
+$$20 (epsilon / 2) = \sqrt{5}$$
+
+\section*{Tables}
+Tables can be generated using the \texttt{tabular} environment, and their placement and captioning is configured with the \texttt{table} environment, like with figures. In the \texttt{tabular} environment, you provide a section parameter that configures your number ofcolumns, their text alignment, and vertical borders.
+
+\begin{table}[ht]
+	\centering
+	\caption{An example of a table}
+	\begin{tabular}{l c c c}
+		\hline
+		Color	&  Radius, $r$ [mm] & RMS Voltage, $v$ [V]  & Height \\
+		\hline
+		Cyan	&	72.2	&	2.1 \\
+		Magenta	&	45.2	&	5.5 \\
+		Yellow	&	78.5	&	1.3 \\
+		Black	&	33.3	&	6.9 \\
+		Blue    &   20.9    &   2.1 \\
+		\hline
+	\end{tabular}
+	\label{tab:exampleTable}
+\end{table}
+
+\section*{Citations and Cross-references}
+You can add citations \cite{customBibLabel} from \cite{Q} your \texttt{references.bib} file \cite{Burka:1993a} using the \texttt{\textbackslash cite} command \cite{customBibLabel2}. You can also cross-reference equations, figures, and tables and many other items by giving them a custom label with the \texttt{\textbackslash label} command, and using the  \texttt{\textbackslash ref} command to call them. Citations and references like this are very nice because you don't have to worry about item numbering and how it may change as you develop your document; you tell \LaTeX where you want it, and it will handle the numbering so it makes sense. And in PDF viewers, the cross-references are clickable intra-document links that will take you to the associated item. Figure \ref{fig:exampleFig}. Table \ref{tab:exampleTable}. Equation \ref{eqn:exampleEqn}.
+
+\section*{Footnotes}
+Footnotes can be placed with the \texttt{\textbackslash footnote} command\footnote{This is a footnote but it's a very long footnote so that we can test the indent of the footnote text when it leads onto a second line at the bottom of the page.}. 
