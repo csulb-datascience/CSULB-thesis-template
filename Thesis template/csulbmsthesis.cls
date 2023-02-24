@@ -56,9 +56,9 @@
 \renewcommand*\contentsname{TABLE OF CONTENTS}
 \renewcommand{\cfttoctitlefont}{\hspace*{\fill}\normalsize\bfseries} % keep consistent font size
 \renewcommand{\cftaftertoctitle}{\hspace*{\fill}}
-\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftbeforetoctitleskip}{-25pt}
 \renewcommand{\cftchapaftersnum}{.}
-\setlength{\cftaftertoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{8pt}
 \setlength{\cftchapindent}{1.5em} % set indents for chapters
 %%% make everything normal font and not bold
 \addtocontents{toc}{\string\renewcommand{\protect\cftchappagefont}{\protect\normalfont}}
@@ -68,28 +68,28 @@
 \addtocontents{toc}{\string\renewcommand{\protect\cftpartfont}{\protect\normalfont}}
 \addtocontents{toc}{\string\renewcommand{\protect\cftpartleader}{\protect\normalfont\protect\cftdotfill{\protect\cftsecdotsep}}}
 %%% vertically distribute table of contents items evenly
-\setlength{\cftbeforechapskip}{12pt}
-\setlength{\cftbeforepartskip}{12pt}
+\setlength{\cftbeforechapskip}{0pt}
+\setlength{\cftbeforepartskip}{0pt}
 
 %% list of figures
 \renewcommand*\listfigurename{LIST OF FIGURES}
 \renewcommand{\cftloftitlefont}{\hspace*{\fill}\normalsize\bfseries} % keep consistent font size
 \renewcommand{\cftafterloftitle}{\hspace*{\fill}}
 \renewcommand{\cftfigaftersnum}{.}
-\setlength{\cftbeforeloftitleskip}{0pt} % keep at 1 inch margin
+\setlength{\cftbeforeloftitleskip}{-25pt} % keep at 1 inch margin
 \setlength{\cftafterloftitleskip}{0pt} % keep the double spacing
 \setlength{\cftfigindent}{0pt}  % remove indentation from figures in lof
-\cftsetindents{figure}{0em}{4em} % set indents
+\cftsetindents{figure}{1.5em}{4em} % set indents
 
 %% list of tables
 \renewcommand*\listtablename{LIST OF TABLES}
 \renewcommand{\cftlottitlefont}{\hspace*{\fill}\normalsize\bfseries} % keep consistent font size
 \renewcommand{\cftafterlottitle}{\hspace*{\fill}}
-\setlength{\cftbeforelottitleskip}{0pt} % keep at 1 inch margin
+\setlength{\cftbeforelottitleskip}{-25pt} % keep at 1 inch margin
 \renewcommand{\cfttabaftersnum}{.} 
 \setlength{\cftafterlottitleskip}{0pt} % keep the double spacing
 \setlength{\cfttabindent}{0pt}  % remove indentation from tables in lot
-\cftsetindents{table}{0em}{4em}  % set indents
+\cftsetindents{table}{1.5em}{4em}  % set indents
 
 
 % --- Tables, figures, equations --- %
@@ -105,7 +105,7 @@
 \RequirePackage[compact]{titlesec}
 
 %% reduce vertical space after headings
-\titleformat{\chapter}[display]{\bfseries\centering}{\chaptertitlename\ \thechapter}{0pt}{\vskip12pt}
+\titleformat{\chapter}[display]{\bfseries\centering}{\chaptertitlename\ \thechapter \vspace{-1em}}{0pt}{\vskip12pt}
 \titlespacing*{\chapter}{0pt}{0pt}{0pt}
 \titlespacing*{\section}{0pt}{0pt}{0pt}
 \titlespacing*{\subsection}{0pt}{0pt}{0pt}
@@ -209,3 +209,41 @@
 % \newcommand{\mycaption}[1]% duplicate long and short captions
 % {\caption[\addtolength{\leftskip}{\bibindent}\hspace{-\bibindent}#1]{#1}}
 % \captionsetup{format=hang}
+
+
+
+
+
+%% CITATION AND BIBLIOGRAPHY COMMANDS
+%% 
+%% V1.6 no longer supports the older, nonstandard \shortcite and \citename setup stuff
+% 
+% 
+% Modify Latex2e \@citex to separate citations with "], ["
+\def\@citex[#1]#2{%
+  \let\@citea\@empty
+  \@cite{\@for\@citeb:=#2\do
+    {\@citea\def\@citea{], [}%
+     \edef\@citeb{\expandafter\@firstofone\@citeb\@empty}%
+     \if@filesw\immediate\write\@auxout{\string\citation{\@citeb}}\fi
+     \@ifundefined{b@\@citeb}{\mbox{\reset@font\bfseries ?}%
+       \G@refundefinedtrue
+       \@latex@warning
+         {Citation `\@citeb' on page \thepage \space undefined}}%
+       {\hbox{\csname b@\@citeb\endcsname}}}}{#1}}
+
+% V1.6 we create hooks for the optional use of Donald Arseneau's
+% cite.sty package. cite.sty is "smart" and will notice that the
+% following format controls are already defined and will not
+% redefine them. The result will be the proper sorting of the
+% citation numbers and auto detection of 3 or more entry "ranges" -
+% all in IEEE style:  [1], [2], [5]--[7], [12]
+% This also allows for an optional note, i.e., \cite[mynote]{..}.
+% If the \cite with note has more than one reference, the note will
+% be applied to the last of the listed references. It is generally
+% desired that if a note is given, only one reference is listed in
+% that \cite.
+% Thanks to Mr. Arseneau for providing the required format arguments
+% to produce the IEEE style.
+\def\citepunct{], [}
+\def\citedash{]--[}
