@@ -2,6 +2,8 @@
 
 \graphicspath{ {Figures/} }
 
+\usepackage{subfig}
+\usepackage{multirow}
 \usepackage{lipsum} % used for dummy text in preface.tex and chapter2.tex. you should remove this and the accompanying \lipsum commands
 
 %%% Use for Turabian style bibliography and references. Use \printbibliography and remove the \bibliography{} and \bibliographystyle{} commands
@@ -15,13 +17,19 @@
 % \usepackage{natbib} % use this if using 'ascelike' for bibliography. 
 
 % % % - - - - - - - - - - - - - - - - - - - % % %
+%\usepackage{showframe}
+%\usepackage{layout}
+\usepackage[noadjust]{cite}
+\usepackage{titlesec}
+\titlespacing*{\chapter}{0pt}{-25pt}{0pt}
 
 \begin{document}
 % ----- Front Matter ----- %
 % Comment/delete parts as needed
+%\layout{}
 \frontmatter
 \input{Front-matter/title.tex}				% title page
-\input{Front-matter/copyright.tex}			% copyright (optional)
+%\input{Front-matter/copyright.tex}			% copyright (optional)
 \input{Front-matter/abstract.tex}			% abstract
 \input{Front-matter/acknowledgements.tex}	% acknowledgements (optional)
 \tocTabFigLists								% adds table of contents, list of tables and figures
@@ -42,7 +50,7 @@
 
 %% for MULTIPLE appendices --- %%
 %% Add more appendices below in new .tex files as needed. Use these given appendices as a template.
-\appendicesTitlePage	% adds appendices cover page
+%\appendicesTitlePage	% adds appendices cover page
 \begin{appendices}		% fixes appendices chapter numbering
 	\input{Appendix/appendixA.tex}
 	\input{Appendix/appendixB.tex}	
@@ -56,6 +64,7 @@
 
 \bibTitlePage{REFERENCES} % Adds and chooses the title page and heading at the top of your bibliography/references page
 
+\setstretch{1}
 \bibliographystyle{ieeetr} % popular options include 'ieeetr' 'asmejour' 'ascelike'
 \bibliography{references}
 
